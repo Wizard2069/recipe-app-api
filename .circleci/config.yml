@@ -4,6 +4,14 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
+  install-docker-compose:
+    steps:
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
   build-and-test:
     executor: python/default
     steps:
@@ -12,10 +20,11 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: python manage.py test & flake8
+          command: docker-compose run app sh -c "python manage.py test && flake8"
           name: Test
 
 workflows:
   main:
     jobs:
+      - install-docker-compose
       - build-and-test
