@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
+  docker: circleci/docker@1.4.0
 
 jobs:
   install-docker-compose:
