@@ -25,7 +25,9 @@ jobs:
           name: Test
 
 workflows:
-  main:
+  install-docker-compose:
     jobs:
       - install-docker-compose
+  main:
+    jobs:
       - build-and-test
