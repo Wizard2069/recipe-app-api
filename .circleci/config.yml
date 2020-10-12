@@ -5,6 +5,7 @@ orbs:
 
 jobs:
   install-docker-compose:
+    machine: true
     steps:
       - run:
           name: Install Docker Compose
